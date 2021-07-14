@@ -9,30 +9,30 @@ const tbody = document.querySelector('tbody');
 
 //add new user ajax request
 
-updateform.addEventListener('submit', async (e) => {
+addform.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const formdata = new FormData(updateform);
+    const formdata = new FormData(addform);
 
-    formdata.append("update", 1);
+    formdata.append("add", 1);
 
-    if (updateform.checkValidity() === false) {
+    if (addform.checkValidity() === false) {
         e.preventDefault();
         e.stopPropagation();
-        updateform.classList.add("was-validated");
+        addform.classList.add("was-validated");
         return false;
     }
     else {
-        document.getElementById('edit-user-btn').value = 'Please Wait ...';
+        document.getElementById('add-user-btn').value = 'Please Wait ...';
         const data = await fetch("action.php", {
             method: "POST",
             body: formdata,
         });
         const response = await data.text();
         showAlert.innerHTML = response;
-        document.getElementById('edit-user-btn').value = "Add User";
-        updateform.reset();
-        updateform.classList.remove("was-validated");
-        editModal.hide();
+        document.getElementById('add-user-btn').value = "Add User";
+        addform.reset();
+        addform.classList.remove("was-validated");
+        addModal.hide();
         fetchAllUsers();
     }
 
